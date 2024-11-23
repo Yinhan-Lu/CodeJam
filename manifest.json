@@ -1,0 +1,17 @@
+{
+  "manifest_version": 3,
+  "name": "VSB Helper",
+  "version": "1.0",
+  "description": "Helper extension for McGill VSB",
+  "permissions": ["activeTab", "storage"],
+  "host_permissions": ["https://vsb.mcgill.ca/*"],
+  "content_scripts": [
+    {
+      "matches": ["https://vsb.mcgill.ca/*"],
+      "js": ["content.js"]
+    }
+  ],
+  "action": {
+    "default_popup": "popup.html"
+  }
+}

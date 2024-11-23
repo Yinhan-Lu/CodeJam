@@ -1,0 +1,18 @@
+.vsb-helper-btn {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 10000;
+  padding: 10px 20px;
+  background-color: #ed1b2f; /* McGill Red */
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.vsb-helper-btn:hover {
+  background-color: #c41528;
+}
