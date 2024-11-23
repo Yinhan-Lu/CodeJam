@@ -9,6 +9,7 @@
         font-family: Arial, sans-serif;
       }
       .history-item {
+        position: relative;
         display: flex;
         justify-content: space-between;
         align-items: center;
@@ -26,6 +27,34 @@
       .time-text:hover {
         color: #2196f3;
       }
+      .tooltip {
+        display: none;
+        position: absolute;
+        background-color: #333;
+        color: white;
+        padding: 8px 12px;
+        border-radius: 4px;
+        font-size: 12px;
+        left: 50%;
+        transform: translateX(-50%);
+        top: -40px;
+        white-space: nowrap;
+        z-index: 1000;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+      }
+      .tooltip::after {
+        content: "";
+        position: absolute;
+        bottom: -5px;
+        left: 50%;
+        transform: translateX(-50%);
+        border-width: 5px;
+        border-style: solid;
+        border-color: #333 transparent transparent transparent;
+      }
+      .history-item:hover .tooltip {
+        display: block;
+      }
       .delete-btn {
         background-color: #ff4444;
         color: white;
@@ -34,6 +63,7 @@
         border-radius: 4px;
         cursor: pointer;
         font-size: 12px;
+        margin-left: 10px;
       }
       .delete-btn:hover {
         background-color: #cc0000;

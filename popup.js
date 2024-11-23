@@ -9,6 +9,28 @@ function formatDateTime(timestamp) {
   });
 }
 
+function parseCourses(url) {
+  try {
+    const urlObj = new URL(url);
+    const params = new URLSearchParams(urlObj.search);
+    const courses = [];
+
+    // Look for course parameters (course_0_0, course_1_0, etc.)
+    for (let i = 0; i < 10; i++) {
+      // Assume max 10 courses
+      const courseParam = `course_${i}_0`;
+      const course = params.get(courseParam);
+      if (course) {
+        courses.push(course.replace("-", " ")); // Convert COMP-250 to COMP 250
+      }
+    }
+
+    return courses.length > 0 ? courses.join(", ") : "No courses selected";
+  } catch (error) {
+    return "Invalid URL";
+  }
+}
+
 function displayHistory() {
   chrome.storage.local.get(["vsbHistory"], function (result) {
     const historyList = document.getElementById("history-list");
@@ -24,6 +46,11 @@ function displayHistory() {
       const timeDiv = document.createElement("div");
       timeDiv.className = "time-text";
       timeDiv.textContent = formatDateTime(item.timestamp);
+
+      // Create tooltip for courses
+      const tooltip = document.createElement("div");
+      tooltip.className = "tooltip";
+      tooltip.textContent = parseCourses(item.url);
 
       // Create delete button
       const deleteBtn = document.createElement("button");
@@ -48,6 +75,7 @@ function displayHistory() {
       });
 
       historyItem.appendChild(timeDiv);
+      historyItem.appendChild(tooltip);
       historyItem.appendChild(deleteBtn);
       historyList.appendChild(historyItem);
     });
