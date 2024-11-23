@@ -1,0 +1,29 @@
+import requests
+from bs4 import BeautifulSoup
+
+def check_word_in_webpage(url, word):
+    try:
+        # Fetch the webpage
+        response = requests.get(url)
+        response.raise_for_status()  # Check for HTTP errors
+        
+        # Parse the webpage content
+        soup = BeautifulSoup(response.text, 'html.parser')
+        
+        # Extract all the text from the page
+        page_text = soup.get_text()
+        
+        # Check if the word is in the text (case-insensitive)
+        if word.lower() in page_text.lower():
+            # print(f"The word '{word}' is present on the webpage.")
+            return True
+        else:
+            print(f"The word '{word}' is NOT present on the webpage.")
+            return False
+    except requests.exceptions.RequestException as e:
+        print(f"Error fetching the webpage: {e}")
+
+# Example usage
+url = input("Enter the URL of the webpage: ")
+word = input("Enter the word to search for: ")
+print(check_word_in_webpage(url, word))
